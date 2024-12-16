@@ -9,7 +9,6 @@ import Data.Char (
 import Data.Functor (($>))
 import Data.List (
   isPrefixOf,
-  notElem,
  )
 
 newtype Parser a = Parser
