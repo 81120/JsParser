@@ -1,0 +1,6 @@
+(define compare
+    (lambda (x y)
+      (cond
+        ((< x y) (- 0 1))
+        ((eq? x y) (+ (/ 2 3) (% 2 -1)))
+        ((> x y) (* 1 1)))))
