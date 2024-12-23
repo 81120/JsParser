@@ -149,6 +149,9 @@ double = do
   p <- many1 (satisify isDigit)
   return (fromIntegral s * (read (i <> "." <> p) :: Double))
 
+number :: Parser Double
+number = double <|> (fromIntegral <$> integer)
+
 takeUntil :: Char -> Parser String
 takeUntil c = Parser $
   \s ->
@@ -163,3 +166,15 @@ commonStr =
 
 oneOf :: String -> Parser Char
 oneOf str = satisify (`elem` str)
+
+chainl :: Parser a -> Parser (a -> a -> a) -> Parser a
+p `chainl` op = do
+  x <- p
+  rest x
+  where
+    rest u =
+      do
+        f <- op
+        y <- p
+        rest (f u y)
+        <|> return u
